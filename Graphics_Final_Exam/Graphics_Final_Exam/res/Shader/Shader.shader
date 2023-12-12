@@ -73,7 +73,7 @@ const int POINT_LIGHT_TYPE = 0;
 const int SPOT_LIGHT_TYPE = 1;
 const int DIRECTIONAL_LIGHT_TYPE = 2;
 
-const int NUMBEROFLIGHTS = 10;
+const int NUMBEROFLIGHTS = 15;
 
 uniform Light[NUMBEROFLIGHTS] lights;
 

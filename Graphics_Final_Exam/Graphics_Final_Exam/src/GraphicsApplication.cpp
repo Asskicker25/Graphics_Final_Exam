@@ -62,12 +62,25 @@ void GraphicsApplication::SetUp()
 	lightModel->transform.SetScale(glm::vec3(0.01f));
 	//renderer.AddModel(lightModel, &solidColorShader);
 
+	Light* pointLight = new Light();
+	pointLight->InitializeLight(lightModel, Point);
+	pointLight->intensity = 3.0f;
+	pointLight->attenuation = glm::vec4(1.0f,0.5f,0.2f,0.1f);
+	pointLight->transform->SetPosition(glm::vec3(9, 3, 5));
+	pointLight->SetLightColor(glm::vec4(0.5f, 0.4f, 0.3f, 1.0f));
+
+	Model* dirLightModel = new Model("res/Models/DefaultSphere.fbx", false);
+	dirLightModel->transform.SetScale(glm::vec3(0.01f));
+	//renderer.AddModel(lightModel, &solidColorShader);
+
 	Light* dirLight = new Light();
-	dirLight->InitializeLight(lightModel, Directional);
-	dirLight->intensity = 0.5f;
-	dirLight->transform->SetRotation(glm::vec3(-30, 180, 0));
+	dirLight->InitializeLight(dirLightModel, Directional);
+	dirLight->intensity = 0.12f;
+	dirLight->SetLightColor(glm::vec4(1.0f,1.0f,1.0f,1.0f));
+
 
 	lightManager.AddLight(dirLight);
+	lightManager.AddLight(pointLight);
 	lightManager.AddShader(reflectionShader);
 
 #pragma endregion

@@ -281,8 +281,6 @@ void ApplicationWindow::MoveMouse()
 		camera->transform.rotation.x += mouseDeltaPos.y * mouseSens;
 	}
 
-
-
 	camera->transform.SetRotation(camera->transform.rotation);
 
 	//camera->SetCameraForward();

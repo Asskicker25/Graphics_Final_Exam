@@ -111,6 +111,7 @@ void Torch::Load()
 	glm::vec3 pos3 = { 8.0f * unitSize - unitSize * 0.5f, 0.0f, 0.0f * unitSize };
 	glm::vec3 pos4 = { 12.0f * unitSize - unitSize * 0.5f, 0.0f, 4.0f * unitSize };
 	glm::vec3 pos5 = { 14.075f * unitSize, unitSize * 0.5f + 0.1f, 0 * unitSize + unitSize * 0.5f };
+	glm::vec3 pos6 = { 10 + unitSize * 0.5f + 0.5f, 0, 7 + unitSize * 0.5f };
 
 	SetCurrentModel(torchLeft);
 
@@ -123,6 +124,7 @@ void Torch::Load()
 	SetCurrentModel(bigTorch);
 	AddModelPos({ pos3.x,pos3.y,pos3.z });
 	AddModelPos({ pos4.x,pos4.y,pos4.z });
+	AddModelPos({ pos6.x,pos6.y,pos6.z });
 
 	AddToRenderers();
 
@@ -140,29 +142,36 @@ void Torch::Load()
 	glm::vec3 lightPos3 = glm::vec3(pos3.x, pos3.y + 0.1f , pos3.z + 0.05f - 0.05f);
 	glm::vec3 lightPos4 = glm::vec3(pos4.x, pos4.y + 0.1f , pos4.z + 0.05f - 0.05f);
 	glm::vec3 lightPos5 = glm::vec3(pos5.x + 0.05f, pos5.y + 0.05f, pos5.z);
+	glm::vec3 lightPos6 = glm::vec3(pos6.x, pos6.y + 0.1f, pos6.z + 0.05f - 0.05f);
+
+
 	lightPos.push_back(lightPos1);
 	lightPos.push_back(lightPos2);
 	lightPos.push_back(lightPos3);
 	lightPos.push_back(lightPos4);
 	lightPos.push_back(lightPos5);
+	lightPos.push_back(lightPos6);
 
 	flamePos.push_back(lightPos1 + glm::vec3(-0.01f, -0.01f, 0));
 	flamePos.push_back(lightPos2 + glm::vec3(0, -0.01f, -0.01f));
 	flamePos.push_back(lightPos3);
 	flamePos.push_back(lightPos4);
 	flamePos.push_back(lightPos5 + glm::vec3(-0.01f, -0.01f, 0));
+	flamePos.push_back(lightPos6);
 
 	flameRot.push_back(glm::vec3(0, 0, -25));
 	flameRot.push_back(glm::vec3(25, 0, 0));
 	flameRot.push_back(glm::vec3(0, 0, 0));
 	flameRot.push_back(glm::vec3(0, 0, 0));
 	flameRot.push_back(glm::vec3(0, 0, -25));
+	flameRot.push_back(glm::vec3(0, 0, 0));
 
 	flameType.push_back(0);
 	flameType.push_back(0);
 	flameType.push_back(1);
 	flameType.push_back(1);
 	flameType.push_back(0);
+	flameType.push_back(1);
 
 	int i = 0;
 	for (glm::vec3& pos : lightPos)
