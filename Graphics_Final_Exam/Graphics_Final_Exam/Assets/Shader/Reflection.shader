@@ -124,11 +124,11 @@ void main()
 		}
 	}
 	
-    vec3 I = normalize(FragPos - viewPos);
-    vec3 R = reflect(I, normalize(Normal));
-    vec4 finalColor = vec4(texture(skybox, R).rgb, 1.0);
+    //vec3 I = normalize(FragPos - viewPos);
+    //vec3 R = reflect(I, normalize(Normal));
+    //vec4 finalColor = vec4(texture(skybox, R).rgb, 1.0);
 
-    result.xyz = finalColor.xyz + result.xyz;
+    //result.xyz = finalColor.xyz + result.xyz;
 
 	color = result;
 	

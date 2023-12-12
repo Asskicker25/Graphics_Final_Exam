@@ -18,7 +18,7 @@ void Crystals::Update(float deltaTime)
 
 void Crystals::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEngine* physicsEngine)
 {
-	AssignRenderer(renderer, RendererInstance::GetInstance().alphaBlendShader);
+	AssignRenderer(renderer, RendererInstance::GetInstance().reflectionShader);
 
 	model->LoadModel("Assets/Models/Crystals/SM_Env_Crystals_Cluster_Large_01.ply");
 	model->transform.SetScale(glm::vec3(0.001f));
