@@ -6,6 +6,7 @@
 #include "Utilities/RendererInstance.h"
 #include "Environment/Torch/Torch.h"
 #include "Environment/Water/Water.h"
+#include "Environment/Beholder/Beholder.h"
 
 void GraphicsApplication::SetUp()
 {
@@ -15,9 +16,12 @@ void GraphicsApplication::SetUp()
 
 	/*camera->transform.SetPosition(glm::vec3(-0.1, 0.3, 0.7));
 	camera->transform.SetRotation(glm::vec3(-10, 96, 0));*/
+
+	camera->transform.SetPosition(glm::vec3(5.0f, 1.8f, 5.9f));
+	camera->transform.SetRotation(glm::vec3(-56, 1.7, 0));
 	
-	camera->transform.SetPosition(glm::vec3(10, 3, 11));
-	camera->transform.SetRotation(glm::vec3(-53, -1, 0));
+	/*camera->transform.SetPosition(glm::vec3(10, 3, 11));
+	camera->transform.SetRotation(glm::vec3(-53, -1, 0));*/
 
 	EntityManager::GetInstance().AddToRendererAndPhysics(&renderer, &defShader, &physicsEngine);
 
@@ -44,6 +48,11 @@ void GraphicsApplication::SetUp()
 	moonShader->blendMode = OPAQUE;
 	Debugger::Print("MoonShaderID : ", moonShader->GetShaderId());
 
+	reflectionShader = new Shader("Assets/Shader/Reflection.shader");
+	reflectionShader->applyInverseModel = false;
+	reflectionShader->blendMode = ALPHA_BLEND;
+	Debugger::Print("ReflectionShaderID: ", reflectionShader->GetShaderId());
+
 #pragma endregion
 
 
@@ -59,20 +68,24 @@ void GraphicsApplication::SetUp()
 	dirLight->transform->SetRotation(glm::vec3(-30, 180, 0));
 
 	lightManager.AddLight(dirLight);
+	lightManager.AddShader(reflectionShader);
 
 #pragma endregion
 
 	RendererInstance::GetInstance().SetRenderer(&renderer);
 	RendererInstance::GetInstance().moonShader = moonShader;
+	RendererInstance::GetInstance().reflectionShader = reflectionShader;
 	RendererInstance::GetInstance().alphaCutOutShader = &alphaCutOutShader;
 	RendererInstance::GetInstance().alphaBlendShader = &alphaBlendShader;
 	RendererInstance::GetInstance().lightManager = &lightManager;
+	RendererInstance::GetInstance().skyMaterial = skyboxMat;
 
 	Terrain* terrain = new Terrain();
 	Floor* floor = new Floor();
 	Moon* moon = new Moon();
 	Torch* torch = new Torch();
 	Water* water = new Water();
+	Beholder* beholder = new Beholder();
 
 	EntityManager().GetInstance().Start();
 
@@ -86,6 +99,12 @@ void GraphicsApplication::PreRender()
 	moonShader->SetUniformMat("view", view);
 	//moonShader->SetUniform3f("viewPos", camera->transform.position.x, camera->transform.position.y,
 	//	camera->transform.position.z);
+
+	reflectionShader->Bind();
+	reflectionShader->SetUniformMat("projection", camera->GetMatrix());
+	reflectionShader->SetUniformMat("view", view);
+	reflectionShader->SetUniform3f("viewPos", camera->transform.position.x, camera->transform.position.y,
+		camera->transform.position.z);
 
 	EntityManager().GetInstance().Update(Timer::GetInstance().deltaTime);
 }

@@ -10,6 +10,7 @@ public:
 	PhysicsEngine physicsEngine;
 
 	Shader* moonShader;
+	Shader* reflectionShader;
 
 	// Inherited via ApplicationWindow
 	void SetUp() override;

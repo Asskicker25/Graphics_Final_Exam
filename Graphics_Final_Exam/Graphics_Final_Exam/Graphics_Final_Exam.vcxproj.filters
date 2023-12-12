@@ -60,6 +60,12 @@
     <ClCompile Include="src\Environment\Water\Water.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Environment\Material\ReflectiveMaterial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Environment\Beholder\Beholder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GraphicsApplication.h">
@@ -120,6 +126,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Environment\Water\Water.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Environment\Material\ReflectiveMaterial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Environment\Beholder\Beholder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -13,7 +13,10 @@ public:
 	Shader* moonShader;
 	Shader* alphaCutOutShader;
 	Shader* alphaBlendShader;
+	Shader* reflectionShader;
 	LightManager* lightManager;
+
+	SkyBoxMaterial* skyMaterial;
 
 	RendererInstance();
 
