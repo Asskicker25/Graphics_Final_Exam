@@ -144,6 +144,7 @@
     <ClCompile Include="src\InputManager\InputManager.cpp" />
     <ClCompile Include="src\Utilities\BezierCurve\CubicBezierCurve.cpp" />
     <ClCompile Include="src\Utilities\RendererInstance.cpp" />
+    <ClCompile Include="src\Environment\Terrain\Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\EntityManager\Entity.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="src\Utilities\Random.h" />
     <ClInclude Include="src\Utilities\Remap.h" />
     <ClInclude Include="src\Utilities\RendererInstance.h" />
+    <ClInclude Include="src\Environment\Terrain\Terrain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
