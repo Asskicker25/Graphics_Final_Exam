@@ -151,6 +151,7 @@
     <ClCompile Include="src\Utilities\RendererInstance.cpp" />
     <ClCompile Include="src\Environment\Terrain\Terrain.cpp" />
     <ClCompile Include="src\Environment\Torch\Torch.cpp" />
+    <ClCompile Include="src\Environment\Water\Water.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Environment\Material\MoonMaterial.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="src\Utilities\RendererInstance.h" />
     <ClInclude Include="src\Environment\Terrain\Terrain.h" />
     <ClInclude Include="src\Environment\Torch\Torch.h" />
+    <ClInclude Include="src\Environment\Water\Water.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

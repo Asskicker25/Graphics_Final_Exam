@@ -12,6 +12,7 @@ Torch::Torch()
 	torchTop = new Model();
 	torchDown = new Model();
 	lightBase = new Model();
+	flame1 = new Model();
 
 	InitializeEntity(this);
 }
@@ -41,6 +42,13 @@ void Torch::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsE
 
 	torchTop->CopyFromModel(*torchLeft);
 	torchTop->transform.SetRotation(glm::vec3(0, 180, 0));
+
+	flame1->LoadModel("Assets/Models/Torch/Fire 1.fbx");
+	flame1->meshes[0]->material->AsMaterial()->alphaMask->
+		LoadTexture("Assets/Models/Torch/Fire 1.fbm/Fire_Alpha.png");
+	flame1->meshes[0]->material->AsMaterial()->useMaskTexture = true;
+	flame1->transform.SetScale(glm::vec3(0.002f));
+		
 }
 
 void Torch::RemoveFromRendererAndPhysics(Renderer* renderer, PhysicsEngine* physicsEngine)
@@ -77,10 +85,16 @@ void Torch::Load()
 
 	for (glm::vec3& pos : lightPos)
 	{
+		Model* flame = new Model();
+		flame->CopyFromModel(*flame1);
+		flame->transform.SetPosition(pos );
+		renderer->AddModel(flame, RendererInstance::GetInstance().alphaCutOutShader);
+
 		Model* lightModel1 = new Model();
 		lightModel1->CopyFromModel(*lightBase);
 		lightModel1->transform.SetPosition(pos);
 		renderer->AddModel(lightModel1, shader);
+
 
 		Light* light1 = new Light();
 		light1->InitializeLight(lightModel1, Point);

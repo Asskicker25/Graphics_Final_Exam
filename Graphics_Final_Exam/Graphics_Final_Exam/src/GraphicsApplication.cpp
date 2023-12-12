@@ -5,15 +5,16 @@
 #include "Environment/Moon/Moon.h"
 #include "Utilities/RendererInstance.h"
 #include "Environment/Torch/Torch.h"
+#include "Environment/Water/Water.h"
 
 void GraphicsApplication::SetUp()
 {
-	moveSpeed = 5;
+	moveSpeed = 1;
 
-	camera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.1f, 1000.0f, 45.0f);
+	camera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.01f, 1000.0f, 45.0f);
 
-	camera->transform.SetPosition(glm::vec3(1, 7, 4));
-	camera->transform.SetRotation(glm::vec3(-50, 0, 0));
+	camera->transform.SetPosition(glm::vec3(-0.1, 0.3, 0.7));
+	camera->transform.SetRotation(glm::vec3(-10, 96, 0));
 
 	EntityManager::GetInstance().AddToRendererAndPhysics(&renderer, &defShader, &physicsEngine);
 
@@ -61,12 +62,14 @@ void GraphicsApplication::SetUp()
 	RendererInstance::GetInstance().SetRenderer(&renderer);
 	RendererInstance::GetInstance().moonShader = moonShader;
 	RendererInstance::GetInstance().alphaCutOutShader = &alphaCutOutShader;
+	RendererInstance::GetInstance().alphaBlendShader = &alphaBlendShader;
 	RendererInstance::GetInstance().lightManager = &lightManager;
 
 	Terrain* terrain = new Terrain();
 	Floor* floor = new Floor();
 	Moon* moon = new Moon();
 	Torch* torch = new Torch();
+	Water* water = new Water();
 
 	EntityManager().GetInstance().Start();
 

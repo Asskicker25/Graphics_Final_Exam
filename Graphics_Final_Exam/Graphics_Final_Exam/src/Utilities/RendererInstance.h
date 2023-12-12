@@ -12,6 +12,7 @@ public:
 
 	Shader* moonShader;
 	Shader* alphaCutOutShader;
+	Shader* alphaBlendShader;
 	LightManager* lightManager;
 
 	RendererInstance();
