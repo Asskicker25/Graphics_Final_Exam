@@ -13,8 +13,11 @@ void GraphicsApplication::SetUp()
 
 	camera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.01f, 1000.0f, 45.0f);
 
-	camera->transform.SetPosition(glm::vec3(-0.1, 0.3, 0.7));
-	camera->transform.SetRotation(glm::vec3(-10, 96, 0));
+	/*camera->transform.SetPosition(glm::vec3(-0.1, 0.3, 0.7));
+	camera->transform.SetRotation(glm::vec3(-10, 96, 0));*/
+	
+	camera->transform.SetPosition(glm::vec3(10, 3, 11));
+	camera->transform.SetRotation(glm::vec3(-53, -1, 0));
 
 	EntityManager::GetInstance().AddToRendererAndPhysics(&renderer, &defShader, &physicsEngine);
 

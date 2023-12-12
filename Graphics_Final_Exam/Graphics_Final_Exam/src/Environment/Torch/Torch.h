@@ -12,7 +12,10 @@ public:
 	Model* torchTop;
 	Model* torchDown;
 
+	Model* bigTorch;
+
 	Model* flame1;
+	Model* flame2;
 
 	Model* lightBase;
 
