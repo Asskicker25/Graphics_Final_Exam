@@ -20,12 +20,13 @@ void Moon::Update(float deltaTime)
 void Moon::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEngine* physicsEngine)
 {
 	model->LoadModel("Assets/Models/Moon/UV_Sphere_Cylindrical_UIV_Projection_.ply");
-	model->transform.SetPosition(glm::vec3(-10, 50, -50));
-	model->transform.SetScale(glm::vec3(5));
+	model->transform.SetPosition(glm::vec3(-10, 80, -80));
+	model->transform.SetRotation(glm::vec3(90, 90, 0));
+	model->transform.SetScale(glm::vec3(8));
 
 	model->meshes[0]->material = new MoonMaterial();
 	MoonMaterial* moonMat = (MoonMaterial*)model->meshes[0]->material;
-	moonMat->emissionValue = 0.35;
+	moonMat->emissionValue = 0.2;
 	
 	moonMat->diffuseTexture->LoadTexture("Assets/Models/Moon/lroc_color_poles_4k.jpg");
 
