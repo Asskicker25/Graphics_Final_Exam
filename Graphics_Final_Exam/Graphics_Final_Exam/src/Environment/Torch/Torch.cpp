@@ -1,9 +1,12 @@
 #include <Graphics/Light.h>
+#include <Graphics/Timer.h>
 
 #include "Torch.h"
 #include "../Grid/DungeonGrid.h"
 #include "../../Utilities/RendererInstance.h"
 #include <Graphics/LightManager.h>
+#include "../../Utilities/Remap.h"
+#include <glm/glm.hpp>
 
 Torch::Torch()
 {
@@ -17,6 +20,8 @@ Torch::Torch()
 	InitializeEntity(this);
 }
 
+
+
 void Torch::Start()
 {
 	Load();
@@ -24,6 +29,7 @@ void Torch::Start()
 
 void Torch::Update(float deltaTime)
 {
+	ScaleFlame();
 }
 
 void Torch::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEngine* physicsEngine)
@@ -48,11 +54,38 @@ void Torch::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsE
 		LoadTexture("Assets/Models/Torch/Fire 1.fbm/Fire_Alpha.png");
 	flame1->meshes[0]->material->AsMaterial()->useMaskTexture = true;
 	flame1->transform.SetScale(glm::vec3(0.002f));
+	flame1->transform.SetRotation(glm::vec3(0,0,0));
+
 		
 }
 
 void Torch::RemoveFromRendererAndPhysics(Renderer* renderer, PhysicsEngine* physicsEngine)
 {
+}
+
+void Torch::ScaleFlame()
+{
+	if (listOfFlame.size() == 0) return;
+
+	timeStep += Timer::GetInstance().deltaTime;
+	float varyingIntensity = sin(timeStep * flickerSpeed);
+
+	float scaleAddValue = varyingIntensity * 0.1f * 0.0001f;
+	float lightAddValue = varyingIntensity * 0.01f;
+
+	float scale = listOfFlame[0]->transform.scale.x + scaleAddValue;
+	scale = glm::clamp(scale, 0.0f, 1.0f);
+
+	int i = 0;
+	for (Model* model : listOfFlame)
+	{
+		
+		model->transform.SetScale(glm::vec3(scale));
+
+		listOfLight[i]->intensity += lightAddValue;
+		i++;
+	}
+
 }
 
 void Torch::Load()
@@ -77,23 +110,39 @@ void Torch::Load()
 
 
 	std::vector<glm::vec3>  lightPos;
+	std::vector<glm::vec3>  flamePos;
+	std::vector<glm::vec3>  flameRot;
 
-	lightPos.push_back(glm::vec3(pos1.x + 0.05f, pos1.y + 0.05f, pos1.z));
-	lightPos.push_back(glm::vec3(pos2.x, pos2.y + 0.05f, pos2.z + 0.05f));
-	lightPos.push_back(glm::vec3(pos3.x, pos3.y + 0.05f, pos3.z + 0.05f));
+	glm::vec3 lightPos1 = glm::vec3(pos1.x + 0.05f, pos1.y + 0.05f, pos1.z);
+	glm::vec3 lightPos2 = glm::vec3(pos2.x, pos2.y + 0.05f, pos2.z + 0.05f);
+	glm::vec3 lightPos3 = glm::vec3(pos3.x, pos3.y + 0.05f, pos3.z + 0.05f);
+	lightPos.push_back(lightPos1);
+	lightPos.push_back(lightPos2);
+	lightPos.push_back(lightPos3);
 
+	flamePos.push_back(lightPos1 + glm::vec3(-0.01f, -0.01f, 0));
+	flamePos.push_back(lightPos2 + glm::vec3(0, -0.01f, -0.01f));
+	flamePos.push_back(lightPos2 + glm::vec3(0, -0.01f, -0.01f));
 
+	flameRot.push_back(glm::vec3(0, 0, -25));
+	flameRot.push_back(glm::vec3(25, 0, 0));
+	flameRot.push_back(glm::vec3(25, 0, 0));
+
+	int i = 0;
 	for (glm::vec3& pos : lightPos)
 	{
 		Model* flame = new Model();
 		flame->CopyFromModel(*flame1);
-		flame->transform.SetPosition(pos );
+		flame->transform.SetPosition(flamePos[i]);
+		flame->transform.SetRotation(flameRot[i]);
 		renderer->AddModel(flame, RendererInstance::GetInstance().alphaCutOutShader);
+
+		listOfFlame.push_back(flame);
 
 		Model* lightModel1 = new Model();
 		lightModel1->CopyFromModel(*lightBase);
 		lightModel1->transform.SetPosition(pos);
-		renderer->AddModel(lightModel1, shader);
+		//renderer->AddModel(lightModel1, shader);
 
 
 		Light* light1 = new Light();
@@ -103,6 +152,9 @@ void Torch::Load()
 		light1->intensity = 1.5f;
 		RendererInstance::GetInstance().lightManager->AddLight(light1);
 
+		listOfLight.push_back(light1);
+
+		i++;
 	}
 
 #pragma endregion

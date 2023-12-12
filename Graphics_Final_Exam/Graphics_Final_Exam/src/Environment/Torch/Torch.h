@@ -16,10 +16,18 @@ public:
 
 	Model* lightBase;
 
+	float timeStep = 0;
+	float flickerSpeed = 5.0f;
+
 	glm::vec4 lightColor = glm::vec4(1.0f, 0.5f, 0.0f, 1.0f);
 	glm::vec4 atten = glm::vec4(1.0f, 5.0f, 2.5f, 0.01f);
 
+	std::vector<Model*> listOfFlame;
+	std::vector<Light*> listOfLight;
+
 	Torch();
+
+	void ScaleFlame();
 
 	// Inherited via Entity
 	void Start() override;
