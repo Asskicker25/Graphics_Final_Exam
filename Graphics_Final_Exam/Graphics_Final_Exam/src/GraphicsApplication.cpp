@@ -2,10 +2,13 @@
 #include "EntityManager/EntityManager.h"
 #include "Environment/Terrain/Terrain.h"
 #include "Environment/Floor/Floor.h"
+#include "Environment/Moon/Moon.h"
+#include "Utilities/RendererInstance.h"
+#include "Environment/Torch/Torch.h"
 
 void GraphicsApplication::SetUp()
 {
-	moveSpeed = 1;
+	moveSpeed = 5;
 
 	camera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.1f, 1000.0f, 45.0f);
 
@@ -30,6 +33,14 @@ void GraphicsApplication::SetUp()
 
 #pragma endregion
 
+#pragma region Shader
+
+	moonShader = new Shader("Assets/Shader/Moon.shader");
+	moonShader->applyInverseModel = false;
+	moonShader->blendMode = OPAQUE;
+	Debugger::Print("MoonShaderID : ", moonShader->GetShaderId());
+
+#pragma endregion
 
 
 #pragma region Light
@@ -47,9 +58,15 @@ void GraphicsApplication::SetUp()
 
 #pragma endregion
 
+	RendererInstance::GetInstance().SetRenderer(&renderer);
+	RendererInstance::GetInstance().moonShader = moonShader;
+	RendererInstance::GetInstance().alphaCutOutShader = &alphaCutOutShader;
+	RendererInstance::GetInstance().lightManager = &lightManager;
 
 	Terrain* terrain = new Terrain();
 	Floor* floor = new Floor();
+	Moon* moon = new Moon();
+	Torch* torch = new Torch();
 
 	EntityManager().GetInstance().Start();
 
@@ -57,6 +74,13 @@ void GraphicsApplication::SetUp()
 
 void GraphicsApplication::PreRender()
 {
+
+	moonShader->Bind();
+	moonShader->SetUniformMat("projection", camera->GetMatrix());
+	moonShader->SetUniformMat("view", view);
+	//moonShader->SetUniform3f("viewPos", camera->transform.position.x, camera->transform.position.y,
+	//	camera->transform.position.z);
+
 	EntityManager().GetInstance().Update(Timer::GetInstance().deltaTime);
 }
 

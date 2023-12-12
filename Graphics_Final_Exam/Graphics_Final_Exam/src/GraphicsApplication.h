@@ -9,6 +9,8 @@ class GraphicsApplication : public ApplicationWindow
 public:
 	PhysicsEngine physicsEngine;
 
+	Shader* moonShader;
+
 	// Inherited via ApplicationWindow
 	void SetUp() override;
 	void PreRender() override;

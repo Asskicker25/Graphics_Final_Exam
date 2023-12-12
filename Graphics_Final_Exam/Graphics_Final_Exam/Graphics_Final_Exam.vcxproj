@@ -137,6 +137,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Environment\Material\MoonMaterial.cpp" />
+    <ClCompile Include="src\Environment\Moon\Moon.cpp" />
     <ClCompile Include="src\Environment\Grid\DungeonGrid.cpp" />
     <ClCompile Include="src\Environment\Floor\Floor.cpp" />
     <ClCompile Include="src\EntityManager\Entity.cpp" />
@@ -148,8 +150,11 @@
     <ClCompile Include="src\Utilities\BezierCurve\CubicBezierCurve.cpp" />
     <ClCompile Include="src\Utilities\RendererInstance.cpp" />
     <ClCompile Include="src\Environment\Terrain\Terrain.cpp" />
+    <ClCompile Include="src\Environment\Torch\Torch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Environment\Material\MoonMaterial.h" />
+    <ClInclude Include="src\Environment\Moon\Moon.h" />
     <ClInclude Include="src\Environment\Grid\DungeonGrid.h" />
     <ClInclude Include="src\Environment\Floor\Floor.h" />
     <ClInclude Include="src\EntityManager\Entity.h" />
@@ -166,6 +171,7 @@
     <ClInclude Include="src\Utilities\Remap.h" />
     <ClInclude Include="src\Utilities\RendererInstance.h" />
     <ClInclude Include="src\Environment\Terrain\Terrain.h" />
+    <ClInclude Include="src\Environment\Torch\Torch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
