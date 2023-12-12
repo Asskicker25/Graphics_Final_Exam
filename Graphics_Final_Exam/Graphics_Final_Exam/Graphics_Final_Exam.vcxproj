@@ -137,6 +137,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Environment\Crystals\Crystals.cpp" />
     <ClCompile Include="src\Environment\Beholder\Beholder.cpp" />
     <ClCompile Include="src\Environment\Material\ReflectiveMaterial.cpp" />
     <ClCompile Include="src\Environment\Material\MoonMaterial.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="src\Environment\Water\Water.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Environment\Crystals\Crystals.h" />
     <ClInclude Include="src\Environment\Beholder\Beholder.h" />
     <ClInclude Include="src\Environment\Material\ReflectiveMaterial.h" />
     <ClInclude Include="src\Environment\Material\MoonMaterial.h" />

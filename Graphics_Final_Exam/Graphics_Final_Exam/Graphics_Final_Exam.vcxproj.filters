@@ -66,6 +66,9 @@
     <ClCompile Include="src\Environment\Beholder\Beholder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Environment\Crystals\Crystals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GraphicsApplication.h">
@@ -132,6 +135,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Environment\Beholder\Beholder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Environment\Crystals\Crystals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -7,6 +7,7 @@
 #include "Environment/Torch/Torch.h"
 #include "Environment/Water/Water.h"
 #include "Environment/Beholder/Beholder.h"
+#include "Environment/Crystals/Crystals.h"
 
 void GraphicsApplication::SetUp()
 {
@@ -99,6 +100,7 @@ void GraphicsApplication::SetUp()
 	Torch* torch = new Torch();
 	Water* water = new Water();
 	Beholder* beholder = new Beholder();
+	Crystals* crystals = new Crystals;
 
 	EntityManager().GetInstance().Start();
 
