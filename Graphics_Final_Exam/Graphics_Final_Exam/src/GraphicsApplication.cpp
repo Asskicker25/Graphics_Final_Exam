@@ -1,14 +1,16 @@
 #include "GraphicsApplication.h"
-
 #include "EntityManager/EntityManager.h"
+#include "Environment/Terrain/Terrain.h"
+#include "Environment/Floor/Floor.h"
 
 void GraphicsApplication::SetUp()
 {
+	moveSpeed = 1;
 
-	camera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.1f, 1000.0f, 65.0f);
+	camera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.1f, 1000.0f, 45.0f);
 
-	camera->transform.SetPosition(glm::vec3(-50, 20, -60));
-	camera->transform.SetRotation(glm::vec3(-15, -130, 0));
+	camera->transform.SetPosition(glm::vec3(1, 7, 4));
+	camera->transform.SetRotation(glm::vec3(-50, 0, 0));
 
 	EntityManager::GetInstance().AddToRendererAndPhysics(&renderer, &defShader, &physicsEngine);
 
@@ -34,21 +36,28 @@ void GraphicsApplication::SetUp()
 
 	Model* lightModel = new Model("res/Models/DefaultSphere.fbx", false);
 	lightModel->transform.SetScale(glm::vec3(0.01f));
-	renderer.AddModel(lightModel, &solidColorShader);
+	//renderer.AddModel(lightModel, &solidColorShader);
 
 	Light* dirLight = new Light();
 	dirLight->InitializeLight(lightModel, Directional);
-	dirLight->intensity = 1.5f;
+	dirLight->intensity = 0.5f;
 	dirLight->transform->SetRotation(glm::vec3(-30, 180, 0));
 
 	lightManager.AddLight(dirLight);
 
 #pragma endregion
 
+
+	Terrain* terrain = new Terrain();
+	Floor* floor = new Floor();
+
+	EntityManager().GetInstance().Start();
+
 }
 
 void GraphicsApplication::PreRender()
 {
+	EntityManager().GetInstance().Update(Timer::GetInstance().deltaTime);
 }
 
 void GraphicsApplication::PostRender()
@@ -57,6 +66,22 @@ void GraphicsApplication::PostRender()
 
 void GraphicsApplication::ProcessInput(GLFWwindow* window)
 {
+	std::stringstream ssTitle;
+	ssTitle << "Camera Pos : "
+		<< camera->transform.position.x << " , "
+		<< camera->transform.position.y << " , "
+		<< camera->transform.position.z
+		<< "  Camera Pitch : "
+		<< camera->transform.rotation.x
+		<< "  Camera Yaw : "
+		<< camera->transform.rotation.y
+		<< "  Camera Z : "
+		<<camera->transform.rotation.z;
+
+	std::string theTitle = ssTitle.str();
+
+
+	glfwSetWindowTitle(window, theTitle.c_str());
 }
 
 void GraphicsApplication::KeyCallBack(GLFWwindow* window, int& key, int& scancode, int& action, int& mods)
