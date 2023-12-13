@@ -79,7 +79,7 @@ void GraphicsApplication::SetUp()
 
 	Light* dirLight = new Light();
 	dirLight->InitializeLight(dirLightModel, Directional);
-	dirLight->intensity = 0.12f;
+	dirLight->intensity = 0.22f;
 	dirLight->SetLightColor(glm::vec4(1.0f,1.0f,1.0f,1.0f));
 
 

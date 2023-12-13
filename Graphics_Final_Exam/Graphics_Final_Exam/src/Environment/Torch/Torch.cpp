@@ -86,7 +86,7 @@ void Torch::ScaleFlame()
 	float varyingIntensity = sin(timeStep * flickerSpeed);
 
 	float scaleAddValue = varyingIntensity * 0.1f * 0.0001f;
-	float lightAddValue = varyingIntensity * 0.01f;
+	float lightAddValue = varyingIntensity * 0.02f;
 
 	float scale = listOfFlame[0]->transform.scale.x + scaleAddValue;
 	scale = glm::clamp(scale, 0.0f, 1.0f);
