@@ -98,9 +98,9 @@ void GraphicsApplication::SetUp()
 	Floor* floor = new Floor();
 	Moon* moon = new Moon();
 	Torch* torch = new Torch();
+	Crystals* crystals = new Crystals;
 	Water* water = new Water();
 	Beholder* beholder = new Beholder();
-	Crystals* crystals = new Crystals;
 
 	EntityManager().GetInstance().Start();
 

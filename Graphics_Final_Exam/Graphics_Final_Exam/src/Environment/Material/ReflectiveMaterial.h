@@ -16,6 +16,7 @@ private:
 
 public:
 
+	bool showReflection = false;
 	Texture* diffuseTexture;
 	Texture* specularTexture;
 	Texture* alphaMask;
@@ -24,6 +25,7 @@ public:
 
 	AmbientType ambientType;
 
+	float reflectValue = 0.5f;
 	float ambientValue;
 	float specularValue;
 	float shininess = 32;

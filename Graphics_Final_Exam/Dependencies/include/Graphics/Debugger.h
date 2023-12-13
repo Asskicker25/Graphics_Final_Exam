@@ -15,7 +15,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#define ASSERT(x)	if(x == true) __debugbreak();
+#define ASSERT(x)	if(x == true) /*__debugbreak();*/
 #define GLCALL(x)  \
     if (glfwGetCurrentContext())  \
     {  \

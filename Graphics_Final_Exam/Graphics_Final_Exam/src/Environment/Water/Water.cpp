@@ -26,9 +26,11 @@ void Water::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsE
 	model->meshes[0]->material = new ReflectiveMaterial();
 	ReflectiveMaterial* mat = (ReflectiveMaterial*)model->meshes[0]->material;
 
-	mat->textureTiling = glm::vec2(10, 20);
+	mat->textureTiling = glm::vec2(5, 5);
+	mat->showReflection = true;
+	mat->reflectValue = 0.5;
 	mat->diffuseTexture->LoadTexture("Assets/Models/Water/Water.jpg");
-	mat->SetBaseColor(glm::vec4(1.0f, 1.0f, 1.0f,0.6f));
+	mat->SetBaseColor(glm::vec4(1.0f, 1.0f, 1.0f,0.65f));
 
 	renderer->AddModel(model, RendererInstance::GetInstance().reflectionShader);
 }

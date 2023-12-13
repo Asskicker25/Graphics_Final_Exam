@@ -3,7 +3,7 @@
 #include "../../EntityManager/Entity.h"
 #include "../../LoaderBase.h"
 
-class Crystals : public Entity, public LoaderBase
+class Crystals : public Entity
 {
 public:
 	Model* model;
@@ -16,7 +16,5 @@ public:
 	void AddToRendererAndPhysics(Renderer* renderer, Shader* shader, PhysicsEngine* physicsEngine) override;
 	void RemoveFromRendererAndPhysics(Renderer* renderer, PhysicsEngine* physicsEngine) override;
 
-	// Inherited via LoaderBase
-	void Load() override;
 };
 

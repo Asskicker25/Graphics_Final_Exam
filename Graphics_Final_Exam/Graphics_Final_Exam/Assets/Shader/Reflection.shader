@@ -9,6 +9,7 @@ layout(location = 3) in vec4 vertexColor;
 
 out vec2 TexCoord;
 out vec3 Normal;
+out vec3 Normal1;
 out vec3 FragPos;
 out vec4 VertexColor;
 
@@ -24,9 +25,11 @@ void main()
 {
 	gl_Position = projection * view * model * vec4(position, 1);
 	TexCoord = vec2(texCoord.x * textureTiling.x, texCoord.y * textureTiling.y);
-	
-	vec4 worlNormal = inverseModel * vec4(normal, 1.0f);
+
+    vec4 worlNormal = inverseModel * vec4(normal, 1.0f);
 	Normal = normalize(worlNormal.xyz);
+	
+	Normal1 = mat3(transpose(inverse(model))) * normal;
 	//Normal = normal;
 	
 	FragPos = vec3(model * vec4(position, 1.0f));
@@ -64,6 +67,7 @@ out vec4 color;
 
 in vec2 TexCoord;
 in vec3 Normal;
+in vec3 Normal1;
 in vec3 FragPos;
 in vec4 VertexColor;
 
@@ -86,6 +90,9 @@ uniform vec3 viewPos;
 //OPAQUE = 1,
 //ALPHA_BLEND = 2,
 //ALPHA_CUTOUT = 3
+
+uniform bool showReflection;
+uniform float reflectValue;
 
 uniform vec3 alphaCutOut;  //ShaderBlendMode //ObjectBlendMode , alphaCutoffThreshold
 
@@ -123,14 +130,9 @@ void main()
 			discard;
 		}
 	}
-	
-    //vec3 I = normalize(FragPos - viewPos);
-    //vec3 R = reflect(I, normalize(Normal));
-    //vec4 finalColor = vec4(texture(skybox, R).rgb, 1.0);
-
-    //result.xyz = finalColor.xyz + result.xyz;
 
 	color = result;
+    //color = vec4(finalColor.xyz,result.w);
 	
 };
 
@@ -139,6 +141,8 @@ vec4 CalculateLightContrib(vec3 normal, vec3 fragPos, vec3 viewDir )
 {
 
 	vec4 result = vec4(0.0);
+
+    
 	
 	//Tex Color
 	vec4 diffuseColor = texture(texture_diffuse, TexCoord);
@@ -173,6 +177,7 @@ vec4 CalculateLightContrib(vec3 normal, vec3 fragPos, vec3 viewDir )
 			result += CalcDirLight(lights[i], texColor, ambientColor, normal, viewDir);
 		}
 	}
+
 	
 	if(alphaCutOut.y == 1)
 	{
@@ -183,6 +188,14 @@ vec4 CalculateLightContrib(vec3 normal, vec3 fragPos, vec3 viewDir )
 		result.w =  material.baseColor.w;
 	}
 	
+    if(showReflection)
+    {
+        vec3 eyeDir = normalize(FragPos - viewPos);
+        vec3 reflectDir = normalize(reflect(eyeDir, normalize(Normal1)));
+        vec3 reflectColor = texture(skybox, reflectDir).rgb;
+
+        result.xyz += reflectColor * reflectValue;
+    }
 	
 	return result;
 }

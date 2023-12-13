@@ -80,6 +80,10 @@ void ReflectiveMaterial::UpdateMaterial(Shader* shader)
 
 	shader->SetUniform3f("textureTiling", this->textureTiling.x, this->textureTiling.y, 1.0f);
 
+	shader->SetUniform1i("showReflection", this->showReflection);
+
+	shader->SetUniform1f("reflectValue", this->reflectValue);
+
 	shader->SetUniform4f("material.baseColor", this->GetBaseColor().x, this->GetBaseColor().y,
 		this->GetBaseColor().z, this->GetBaseColor().w);
 
@@ -137,6 +141,8 @@ BaseMaterial* ReflectiveMaterial::CloneMaterial()
 	material->shininess = this->shininess;
 	material->useMaskTexture = this->useMaskTexture;
 	material->alphaCutoffThreshold = this->alphaCutoffThreshold;
+	material->reflectValue = this->reflectValue;
+	material->showReflection = this->showReflection;
 
 	return material;
 }
