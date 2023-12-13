@@ -25,6 +25,7 @@ void Beholder::AddToRendererAndPhysics(Renderer* renderer, Shader* shader, Physi
 	model->transform.SetPosition(glm::vec3(5.45f, 0.3, 4.8f));
 	model->transform.SetRotation(glm::vec3(0.0f, -90, 0));
 	model->transform.SetScale(glm::vec3(0.1f));
+	model->meshes[0]->material->AsMaterial()->SetBaseColor(glm::vec4(1.5));
 
 	renderer->AddModel(model, shader);
 
