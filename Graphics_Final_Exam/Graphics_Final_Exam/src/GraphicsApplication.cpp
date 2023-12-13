@@ -11,15 +11,18 @@
 
 void GraphicsApplication::SetUp()
 {
-	moveSpeed = 1;
+	moveSpeed = 5;
 
 	camera->InitializeCamera(PERSPECTIVE, windowWidth, windowHeight, 0.01f, 1000.0f, 45.0f);
 
 	/*camera->transform.SetPosition(glm::vec3(-0.1, 0.3, 0.7));
 	camera->transform.SetRotation(glm::vec3(-10, 96, 0));*/
 
-	camera->transform.SetPosition(glm::vec3(5.0f, 1.8f, 5.9f));
-	camera->transform.SetRotation(glm::vec3(-56, 1.7, 0));
+	/*camera->transform.SetPosition(glm::vec3(5.0f, 1.8f, 5.9f));
+	camera->transform.SetRotation(glm::vec3(-56, 1.7, 0));*/
+
+	camera->transform.SetPosition(glm::vec3(2.9f, 9.2f, 10.2f));
+	camera->transform.SetRotation(glm::vec3(-50,-30, 0));
 	
 	/*camera->transform.SetPosition(glm::vec3(10, 3, 11));
 	camera->transform.SetRotation(glm::vec3(-53, -1, 0));*/
@@ -65,7 +68,7 @@ void GraphicsApplication::SetUp()
 
 	Light* pointLight = new Light();
 	pointLight->InitializeLight(lightModel, Point);
-	pointLight->intensity = 3.0f;
+	pointLight->intensity = 2.5f;
 	pointLight->attenuation = glm::vec4(1.0f,0.5f,0.2f,0.1f);
 	pointLight->transform->SetPosition(glm::vec3(9, 3, 5));
 	pointLight->SetLightColor(glm::vec4(0.5f, 0.4f, 0.3f, 1.0f));
